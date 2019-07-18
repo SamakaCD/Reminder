@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+		<variable
+			name="viewModel"
+			type="com.ivansadovyi.reminder.presentation.screens.reminders.RemindersViewModel" />
+
+		<variable
+			name="activity"
+			type="com.ivansadovyi.reminder.presentation.screens.reminders.RemindersActivity" />
+	</data>
+
+	<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/recyclerView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:items="@{viewModel.reminders}"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|end"
+			android:layout_margin="16dp"
+			android:background="@drawable/bg_floating_action_button"
+			android:drawableStart="@drawable/ic_add"
+			android:drawablePadding="8dp"
+			android:onClick="@{_ -> activity.navigateToAddReminder()}"
+			android:outlineSpotShadowColor="?android:colorAccent"
+			android:paddingStart="16dp"
+			android:paddingEnd="20dp"
+			android:text="@string/reminders_add_reminder"
+			android:textAllCaps="false"
+			android:textColor="?android:textColorPrimaryInverse" />
+	</FrameLayout>
+</layout>
