@@ -2,4 +2,9 @@
 <resources>
 
     <style name="AppTheme" parent="@android:style/Theme.DeviceDefault.Light" />
+
+    <style name="AppTheme.SnoozeReminder" parent="@android:style/Theme.DeviceDefault.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>

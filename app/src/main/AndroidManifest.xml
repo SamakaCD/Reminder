@@ -31,6 +31,11 @@
 			android:theme="@style/AppTheme"
 			android:windowSoftInputMode="stateVisible|adjustResize" />
 
+		<activity
+			android:name=".presentation.screens.snoozeReminder.SnoozeReminderActivity"
+			android:excludeFromRecents="true"
+			android:theme="@style/AppTheme.SnoozeReminder" />
+
 		<receiver android:name=".notification.RemindNotificationBroadcastReceiver">
 			<intent-filter>
 				<action android:name="com.ivansadovyi.reminder.action.REMIND" />

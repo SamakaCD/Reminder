@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:gravity="center_vertical"
+	android:orientation="horizontal"
+	android:padding="24dp">
+
+	<EditText
+		android:id="@+id/hours"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:gravity="end"
+		android:hint="@string/snooze_up_to_hint"
+		android:inputType="numberDecimal"
+		android:minWidth="56dp">
+
+		<requestFocus />
+	</EditText>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="20dp"
+		android:text="@string/snooze_up_to_hours"
+		android:textColor="?android:textColorPrimary" />
+
+	<EditText
+		android:id="@+id/minutes"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:gravity="end"
+		android:hint="@string/snooze_up_to_hint"
+		android:inputType="numberDecimal"
+		android:minWidth="56dp" />
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:text="@string/snooze_up_to_minutes"
+		android:textColor="?android:textColorPrimary" />
+</LinearLayout>

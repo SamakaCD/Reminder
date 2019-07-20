@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:paddingTop="8dp"
+	android:paddingBottom="8dp">
+
+	<TextView
+		android:id="@+id/snoozeFor15Mins"
+		style="@android:style/Widget.DeviceDefault.Button"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?android:selectableItemBackground"
+		android:gravity="start|center_vertical"
+		android:onClick="onSnoozeFor15MinsClick"
+		android:paddingStart="?android:listPreferredItemPaddingStart"
+		android:paddingEnd="?android:listPreferredItemPaddingEnd"
+		android:text="@string/snooze_reminder_15_mins"
+		android:textAllCaps="false" />
+
+	<Button
+		android:id="@+id/snoozeFor1Hour"
+		style="@android:style/Widget.DeviceDefault.Button"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?android:selectableItemBackground"
+		android:gravity="start|center_vertical"
+		android:onClick="onSnoozeFor1HourClick"
+		android:paddingStart="?android:listPreferredItemPaddingStart"
+		android:paddingEnd="?android:listPreferredItemPaddingEnd"
+		android:text="@string/snooze_reminder_1_hour"
+		android:textAllCaps="false" />
+
+	<Button
+		android:id="@+id/snoozeUpTo"
+		style="@android:style/Widget.DeviceDefault.Button"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?android:selectableItemBackground"
+		android:gravity="start|center_vertical"
+		android:onClick="onSnoozeUpToClick"
+		android:paddingStart="?android:listPreferredItemPaddingStart"
+		android:paddingEnd="?android:listPreferredItemPaddingEnd"
+		android:text="@string/snooze_reminder_up_to"
+		android:textAllCaps="false" />
+
+	<Button
+		android:id="@+id/remindAfter"
+		style="@android:style/Widget.DeviceDefault.Button"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?android:selectableItemBackground"
+		android:gravity="start|center_vertical"
+		android:onClick="onRemindAfterClick"
+		android:paddingStart="?android:listPreferredItemPaddingStart"
+		android:paddingEnd="?android:listPreferredItemPaddingEnd"
+		android:text="@string/snooze_reminder_remind_after"
+		android:textAllCaps="false" />
+</LinearLayout>
