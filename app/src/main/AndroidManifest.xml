@@ -41,5 +41,11 @@
 				<action android:name="com.ivansadovyi.reminder.action.REMIND" />
 			</intent-filter>
 		</receiver>
+
+		<receiver android:name=".notification.UnpinReminderNotificationBroadcastReceiver">
+			<intent-filter>
+				<action android:name="com.ivansadovyi.reminder.action.UNPIN_REMINDER" />
+			</intent-filter>
+		</receiver>
 	</application>
 </manifest>

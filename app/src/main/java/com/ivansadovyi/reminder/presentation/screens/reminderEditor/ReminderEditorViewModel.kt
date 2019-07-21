@@ -26,6 +26,9 @@ class ReminderEditorViewModel(
 	@get:Bindable
 	var manualDate: Date? by ObservableField(fieldId = BR.manualDate, value = null)
 
+	@get:Bindable
+	var shouldBePinned by ObservableField(fieldId = BR.shouldBePinned, value = true)
+
 	@Bindable("text")
 	fun getSmartDate(): Date? {
 		return ReminderTimeScanner.scan(text)
@@ -48,7 +51,8 @@ class ReminderEditorViewModel(
 		return Reminder(
 			id = reminderId ?: 0,
 			text = getTextWithoutSmartDate(),
-			date = date
+			date = date,
+			shouldBePinned = shouldBePinned
 		)
 	}
 
@@ -100,6 +104,10 @@ class ReminderEditorViewModel(
 		getDate()?.let { calendar.time = it }
 		calendar.set(year, month, dayOfMonth)
 		manualDate = calendar.time
+	}
+
+	fun togglePinning() {
+		shouldBePinned = !shouldBePinned
 	}
 
 	fun saveReminder() {

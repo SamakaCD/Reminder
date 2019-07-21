@@ -10,12 +10,9 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.ivansadovyi.reminder.R
 import com.ivansadovyi.reminder.presentation.screens.snoozeReminder.SnoozeReminderActivity
+import com.ivansadovyi.reminder.reminder.Reminder
 
-class RemindNotification(
-	private val context: Context,
-	private val id: Long,
-	private val text: String
-) {
+class RemindNotification(private val context: Context, private val reminder: Reminder) {
 
 	init {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -24,22 +21,22 @@ class RemindNotification(
 	}
 
 	fun show(notificationManager: NotificationManager) {
-		val snoozeIntent = Intent(context, SnoozeReminderActivity::class.java)
-		snoozeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-		snoozeIntent.putExtras(SnoozeReminderActivity.createExtras(reminderId = id))
-		val snoozePendingIntent = PendingIntent.getActivity(context, 0, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-		val snoozeActionText = context.getString(R.string.notification_action_snooze)
-
 		val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-			.setContentTitle(text)
+			.setContentTitle(reminder.text)
 			.setSmallIcon(R.drawable.ic_reminder_notification)
 			.setDefaults(NotificationCompat.DEFAULT_ALL)
 			.setPriority(NotificationCompat.PRIORITY_HIGH)
 			.setAutoCancel(true)
-			.addAction(R.drawable.ic_snooze, snoozeActionText, snoozePendingIntent)
+			.setOngoing(reminder.shouldBePinned)
+			.addAction(R.drawable.ic_snooze, context.getString(R.string.notification_action_snooze), createSnoozePendingIntent())
+			.apply {
+				if (reminder.shouldBePinned) {
+					addAction(R.drawable.ic_unpin, context.getString(R.string.notification_action_unpin), createUnpinPendingIntent())
+				}
+			}
 			.build()
 
-		notificationManager.notify(id.toInt(), notification)
+		notificationManager.notify(reminder.id.toInt(), notification)
 	}
 
 	@RequiresApi(Build.VERSION_CODES.O)
@@ -48,6 +45,20 @@ class RemindNotification(
 		val channel = NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_HIGH)
 		val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 		notificationManager.createNotificationChannel(channel)
+	}
+
+	private fun createSnoozePendingIntent(): PendingIntent {
+		val intent = Intent(context, SnoozeReminderActivity::class.java)
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+		intent.putExtras(SnoozeReminderActivity.createExtras(reminder.id))
+		return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+	}
+
+	private fun createUnpinPendingIntent(): PendingIntent {
+		val intent = Intent(context, UnpinReminderNotificationBroadcastReceiver::class.java)
+		intent.action = UnpinReminderNotificationBroadcastReceiver.ACTION_UNPIN_REMINDER
+		intent.putExtras(UnpinReminderNotificationBroadcastReceiver.createExtras(reminder.id))
+		return PendingIntent.getBroadcast(context, reminder.id.toInt(), intent, PendingIntent.FLAG_CANCEL_CURRENT)
 	}
 
 	companion object {

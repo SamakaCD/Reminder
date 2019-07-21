@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
 
@@ -14,6 +15,8 @@
 		<import type="com.ivansadovyi.reminder.reminder.ReminderDateFormatter" />
 
 		<import type="android.view.View" />
+
+		<import type="com.ivansadovyi.reminder.presentation.utils.AttrResolver" />
 	</data>
 
 	<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -43,28 +46,58 @@
 			android:animateLayoutChanges="true"
 			android:clipToPadding="false"
 			android:gravity="center_vertical"
+			android:minHeight="88dp"
 			android:orientation="horizontal"
 			android:padding="16dp">
 
-			<Button
-				android:id="@+id/reminderDate"
-				android:layout_width="wrap_content"
-				android:layout_height="32dp"
-				android:background="@drawable/bg_round_button"
-				android:drawableStart="@{viewModel.date != null ? @drawable/ic_notification : @drawable/ic_notification_outline}"
-				android:drawablePadding="8dp"
-				android:onClick="@{_ -> view.showTimePicker()}"
-				android:paddingStart="16dp"
-				android:paddingEnd="16dp"
-				android:text="@{viewModel.date != null ? ReminderDateFormatter.format(context, viewModel.date) : @string/reminder_editor_set_time}"
-				android:textAllCaps="false"
-				tools:drawableStart="@drawable/ic_notification_outline"
-				tools:text="@string/reminder_editor_set_time" />
-
-			<Space
+			<com.google.android.flexbox.FlexboxLayout
 				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:layout_weight="1" />
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:paddingStart="-8dp"
+				android:paddingEnd="0dp"
+				app:flexWrap="wrap">
+
+				<Button
+					android:id="@+id/reminderDate"
+					android:layout_width="wrap_content"
+					android:layout_height="40dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginEnd="8dp"
+					android:background="@{viewModel.date != null ? @drawable/bg_round_button_colored : @drawable/bg_round_button}"
+					android:drawableStart="@{viewModel.date != null ? @drawable/ic_notification : @drawable/ic_notification_outline}"
+					android:drawablePadding="8dp"
+					android:onClick="@{_ -> view.showTimePicker()}"
+					android:paddingStart="16dp"
+					android:paddingEnd="16dp"
+					android:text="@{viewModel.date != null ? ReminderDateFormatter.format(context, viewModel.date) : @string/reminder_editor_set_time}"
+					android:textAllCaps="false"
+					android:textColor="@{AttrResolver.getColor(context, viewModel.date != null ? android.R.attr.textColorPrimaryInverse : android.R.attr.textColorPrimary)}"
+					app:drawableTint="@{AttrResolver.getColor(context, viewModel.date != null ? android.R.attr.textColorPrimaryInverse : android.R.attr.textColorPrimary)}"
+					tools:background="@drawable/bg_round_button"
+					tools:drawableStart="@drawable/ic_notification_outline"
+					tools:text="@string/reminder_editor_set_time" />
+
+				<Button
+					android:id="@+id/shouldBePinned"
+					android:layout_width="wrap_content"
+					android:layout_height="40dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginEnd="8dp"
+					android:background="@{viewModel.shouldBePinned ? @drawable/bg_round_button_colored : @drawable/bg_round_button}"
+					android:drawableStart="@{viewModel.shouldBePinned ? @drawable/ic_pin : @drawable/ic_pin_outline}"
+					android:drawablePadding="8dp"
+					android:onClick="@{_ -> viewModel.togglePinning()}"
+					android:paddingStart="16dp"
+					android:paddingEnd="16dp"
+					android:text="@{viewModel.shouldBePinned ? @string/reminder_pinned : @string/reminder_pin}"
+					android:textAllCaps="false"
+					android:textColor="@{AttrResolver.getColor(context, viewModel.shouldBePinned ? android.R.attr.textColorPrimaryInverse : android.R.attr.textColorPrimary)}"
+					app:drawableTint="@{AttrResolver.getColor(context, viewModel.shouldBePinned ? android.R.attr.textColorPrimaryInverse : android.R.attr.textColorPrimary)}"
+					tools:background="@drawable/bg_round_button"
+					tools:drawableStart="@drawable/ic_pin"
+					tools:text="@string/reminder_pin" />
+			</com.google.android.flexbox.FlexboxLayout>
 
 			<ImageButton
 				style="@android:style/Widget.DeviceDefault.Button"

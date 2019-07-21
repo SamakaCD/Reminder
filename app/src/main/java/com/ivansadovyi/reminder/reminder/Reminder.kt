@@ -8,10 +8,16 @@ import java.util.*
 @Entity(tableName = "reminders")
 class Reminder(
 	var text: String,
-	var date: Date
+	var date: Date,
+	var shouldBePinned: Boolean
 ) : Serializable {
 
-	constructor(id: Long, text: String, date: Date) : this(text, date) {
+	constructor(
+		id: Long,
+		text: String,
+		date: Date,
+		shouldBePinned: Boolean
+	) : this(text, date, shouldBePinned) {
 		this.id = id
 	}
 

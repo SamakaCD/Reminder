@@ -24,7 +24,7 @@ class RemindNotificationBroadcastReceiver : BroadcastReceiver() {
 			val reminderId = intent.getLongExtra(REMINDER_ID, 0)
 			val reminder = reminderDao.getReminderById(reminderId)
 			val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-			RemindNotification(context, reminderId, reminder.text).show(notificationManager)
+			RemindNotification(context, reminder).show(notificationManager)
 		}
 	}
 
