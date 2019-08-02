@@ -47,23 +47,25 @@
 			android:clipToPadding="false"
 			android:gravity="center_vertical"
 			android:minHeight="88dp"
-			android:orientation="horizontal"
-			android:padding="16dp">
+			android:orientation="horizontal">
 
 			<com.google.android.flexbox.FlexboxLayout
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
+				android:layout_marginStart="8dp"
 				android:layout_weight="1"
-				android:paddingStart="-8dp"
-				android:paddingEnd="0dp"
+				android:clipChildren="false"
+				app:alignItems="center"
 				app:flexWrap="wrap">
 
 				<Button
 					android:id="@+id/reminderDate"
 					android:layout_width="wrap_content"
-					android:layout_height="40dp"
+					android:layout_height="36dp"
 					android:layout_marginStart="8dp"
+					android:layout_marginTop="12dp"
 					android:layout_marginEnd="8dp"
+					android:layout_marginBottom="12dp"
 					android:background="@{viewModel.date != null ? @drawable/bg_round_button_colored : @drawable/bg_round_button}"
 					android:drawableStart="@{viewModel.date != null ? @drawable/ic_notification : @drawable/ic_notification_outline}"
 					android:drawablePadding="8dp"
@@ -81,9 +83,11 @@
 				<Button
 					android:id="@+id/shouldBePinned"
 					android:layout_width="wrap_content"
-					android:layout_height="40dp"
+					android:layout_height="36dp"
 					android:layout_marginStart="8dp"
+					android:layout_marginTop="12dp"
 					android:layout_marginEnd="8dp"
+					android:layout_marginBottom="12dp"
 					android:background="@{viewModel.shouldBePinned ? @drawable/bg_round_button_colored : @drawable/bg_round_button}"
 					android:drawableStart="@{viewModel.shouldBePinned ? @drawable/ic_pin : @drawable/ic_pin_outline}"
 					android:drawablePadding="8dp"
@@ -103,6 +107,8 @@
 				style="@android:style/Widget.DeviceDefault.Button"
 				android:layout_width="56dp"
 				android:layout_height="56dp"
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="16dp"
 				android:background="@drawable/bg_floating_action_button"
 				android:onClick="@{_ -> viewModel.saveReminder()}"
 				android:outlineSpotShadowColor="?android:colorAccent"

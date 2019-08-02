@@ -18,11 +18,24 @@ class RemindersViewModel(
 	@get:Bindable
 	var reminders by ObservableField(fieldId = BR.reminders, value = emptyList<Reminder>())
 
+	@get:Bindable
+	var isArchiveExpanded by ObservableField(fieldId = BR.archiveExpanded, value = false)
+
+	@Bindable("reminders", "archiveExpanded")
+	fun getListContents(): ArrayList<Any> {
+		return listContentsBuilder.build(reminders, isArchiveExpanded)
+	}
+
+	private val listContentsBuilder = RemindersListContentsBuilder()
 	private val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
 	fun onResume() {
 		coroutineScope.launch {
 			reminders = reminderDao.getReminders()
 		}
+	}
+
+	fun toggleArchiveExpansion() {
+		isArchiveExpanded = !isArchiveExpanded
 	}
 }

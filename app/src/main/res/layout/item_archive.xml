@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:divider="?android:dividerVertical"
+	android:orientation="vertical"
+	android:showDividers="end">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:background="?android:selectableItemBackground"
+		android:gravity="center_vertical"
+		android:orientation="horizontal"
+		android:paddingStart="?android:listPreferredItemPaddingStart"
+		android:paddingEnd="?android:listPreferredItemPaddingEnd">
+
+		<TextView
+			android:id="@+id/text"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Archive"
+			android:textColor="?android:textColorPrimary"
+			android:textSize="16sp" />
+
+		<ImageView
+			android:id="@+id/chevron"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/ic_chevron_down"
+			android:tint="?android:colorControlNormal"
+			android:tintMode="src_in" />
+	</LinearLayout>
+</LinearLayout>

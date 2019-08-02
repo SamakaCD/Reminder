@@ -1,54 +1,45 @@
-package com.ivansadovyi.reminder.presentation.screens.reminders
+package com.ivansadovyi.reminder.presentation.screens.reminders.adapters.delegates
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.ivansadovyi.reminder.R
-import com.ivansadovyi.reminder.presentation.screens.reminders.RemindersListAdapter.ViewHolder
-import com.ivansadovyi.reminder.presentation.utils.BindableRecyclerViewAdapter
+import com.ivansadovyi.reminder.presentation.screens.reminders.adapters.delegates.ReminderItemDelegate.ViewHolder
 import com.ivansadovyi.reminder.reminder.Reminder
 import com.ivansadovyi.reminder.reminder.ReminderDateFormatter
 
-class RemindersListAdapter(
-	private val listener: RemindersListAdapter.Listener
-) : RecyclerView.Adapter<ViewHolder>(), BindableRecyclerViewAdapter<Reminder>, View.OnClickListener {
+class ReminderItemDelegate(
+	private val listener: Listener
+) : AbsListItemAdapterDelegate<Reminder, Any, ViewHolder>(), View.OnClickListener {
 
 	interface Listener {
 
 		fun onReminderClick(reminder: Reminder)
 	}
 
-	private var items = emptyList<Reminder>()
-
-	override fun setItems(items: List<Reminder>) {
-		this.items = items
-		notifyDataSetChanged()
+	override fun isForViewType(item: Any, items: MutableList<Any>, position: Int): Boolean {
+		return item is Reminder
 	}
 
-	override fun getItemCount(): Int {
-		return items.size
-	}
-
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+	override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
 		val layoutInflater = LayoutInflater.from(parent.context)
 		val itemView = layoutInflater.inflate(R.layout.item_reminder, parent, false)
 		return ViewHolder(itemView)
 	}
 
-	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val reminder = items[position]
+	override fun onBindViewHolder(reminder: Reminder, holder: ViewHolder, payloads: MutableList<Any>) {
 		val context = holder.itemView.context
-		holder.itemView.tag = position
+		holder.itemView.tag = reminder
 		holder.itemView.setOnClickListener(this)
 		holder.text.text = reminder.text
 		holder.time.text = ReminderDateFormatter.format(context, reminder.date)
 	}
 
 	override fun onClick(v: View) {
-		val position = v.tag as Int
-		val reminder = items[position]
+		val reminder = v.tag as Reminder
 		listener.onReminderClick(reminder)
 	}
 
