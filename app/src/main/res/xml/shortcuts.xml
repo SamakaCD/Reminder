@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<shortcut
+		android:enabled="true"
+		android:icon="@drawable/shortcut_add_reminder"
+		android:shortcutId="add"
+		android:shortcutLongLabel="@string/reminder_editor_title_add_reminder"
+		android:shortcutShortLabel="@string/reminder_editor_title_add_reminder">
+
+		<intent
+			android:action="android.intent.action.MAIN"
+			android:targetClass="com.ivansadovyi.reminder.presentation.screens.reminderEditor.ReminderEditorActivity"
+			android:targetPackage="com.ivansadovyi.reminder" />
+	</shortcut>
+</shortcuts>
