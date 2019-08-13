@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.ivansadovyi.reminder.R
 import com.ivansadovyi.reminder.presentation.screens.snoozeReminder.SnoozeReminderActivity
 import com.ivansadovyi.reminder.reminder.Reminder
@@ -20,7 +21,9 @@ class RemindNotification(private val context: Context, private val reminder: Rem
 		}
 	}
 
-	fun show(notificationManager: NotificationManager) {
+	fun show(notificationManager: NotificationManagerCompat) {
+		showWearableNotification(notificationManager)
+
 		val notification = NotificationCompat.Builder(context, CHANNEL_ID)
 			.setContentTitle(reminder.text)
 			.setSmallIcon(R.drawable.ic_reminder_notification)
@@ -28,6 +31,8 @@ class RemindNotification(private val context: Context, private val reminder: Rem
 			.setPriority(NotificationCompat.PRIORITY_HIGH)
 			.setAutoCancel(true)
 			.setOngoing(reminder.shouldBePinned)
+			.setGroup(WEAR_GROUP)
+			.setGroupSummary(true)
 			.addAction(R.drawable.ic_snooze, context.getString(R.string.notification_action_snooze), createSnoozePendingIntent())
 			.apply {
 				if (reminder.shouldBePinned) {
@@ -58,10 +63,31 @@ class RemindNotification(private val context: Context, private val reminder: Rem
 		val intent = Intent(context, UnpinReminderNotificationBroadcastReceiver::class.java)
 		intent.action = UnpinReminderNotificationBroadcastReceiver.ACTION_UNPIN_REMINDER
 		intent.putExtras(UnpinReminderNotificationBroadcastReceiver.createExtras(reminder.id))
-		return PendingIntent.getBroadcast(context, reminder.id.toInt(), intent, PendingIntent.FLAG_CANCEL_CURRENT)
+		return PendingIntent.getBroadcast(context, reminder.id.toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
+	}
+
+	private fun showWearableNotification(notificationManager: NotificationManagerCompat) {
+		val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+			.setContentTitle(reminder.text)
+			.setSmallIcon(R.drawable.ic_reminder_notification)
+			.setDefaults(NotificationCompat.DEFAULT_ALL)
+			.setPriority(NotificationCompat.PRIORITY_HIGH)
+			.setAutoCancel(true)
+			.setGroup(WEAR_GROUP)
+			.setGroupSummary(false)
+			.addAction(R.drawable.ic_snooze, context.getString(R.string.notification_action_snooze), createSnoozePendingIntent())
+			.apply {
+				if (reminder.shouldBePinned) {
+					addAction(R.drawable.ic_unpin, context.getString(R.string.notification_action_unpin), createUnpinPendingIntent())
+				}
+			}
+			.build()
+
+		notificationManager.notify(reminder.id.toInt().inv(), notification)
 	}
 
 	companion object {
 		private const val CHANNEL_ID = "com.ivansadovyi.notification.REMINDERS"
+		private const val WEAR_GROUP = "com.ivansadovyi.notification.WEAR_GROUP"
 	}
 }

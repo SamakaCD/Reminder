@@ -1,10 +1,10 @@
 package com.ivansadovyi.reminder.notification
 
-import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.app.NotificationManagerCompat
 import com.ivansadovyi.reminder.notification.di.RemindNotificationBroadcastReceiverInjector
 import com.ivansadovyi.reminder.reminder.ReminderDao
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +23,7 @@ class RemindNotificationBroadcastReceiver : BroadcastReceiver() {
 		coroutineScope.launch {
 			val reminderId = intent.getLongExtra(REMINDER_ID, 0)
 			val reminder = reminderDao.getReminderById(reminderId)
-			val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+			val notificationManager = NotificationManagerCompat.from(context)
 			RemindNotification(context, reminder).show(notificationManager)
 		}
 	}

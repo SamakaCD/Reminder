@@ -12,6 +12,7 @@ class UnpinReminderNotificationBroadcastReceiver : BroadcastReceiver() {
 		val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 		val reminderId = intent.getLongExtra(REMINDER_ID, 0)
 		notificationManager.cancel(reminderId.toInt())
+		notificationManager.cancel(reminderId.toInt().inv())
 	}
 
 	companion object {
