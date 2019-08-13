@@ -20,8 +20,8 @@
 
 	<string name="snooze_reminder_15_mins">Snooze for 15 mins</string>
 	<string name="snooze_reminder_1_hour">Snooze for 1 hour</string>
-	<string name="snooze_reminder_up_to">Snooze up to...</string>
-	<string name="snooze_reminder_remind_after">Remind after...</string>
+	<string name="snooze_reminder_up_to">Snooze up to…</string>
+	<string name="snooze_reminder_remind_after">Remind after…</string>
 
 	<string name="snooze_up_to_hint">0</string>
 	<string name="snooze_up_to_hours">hours</string>

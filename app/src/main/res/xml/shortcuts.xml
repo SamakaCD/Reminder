@@ -3,8 +3,8 @@
 
 	<shortcut
 		android:enabled="true"
-		android:icon="@drawable/shortcut_add_reminder"
-		android:shortcutId="add"
+		android:icon="@drawable/ic_shortcut_add_reminder"
+		android:shortcutId="add_reminder"
 		android:shortcutLongLabel="@string/reminder_editor_title_add_reminder"
 		android:shortcutShortLabel="@string/reminder_editor_title_add_reminder">
 
